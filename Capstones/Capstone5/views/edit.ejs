@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Borel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Borel&family=Shantell+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="content">
+        <div class="header">
+            <h1><a href="/">Book Reviews</a></h1>
+            <h2>@el-wittmer</h2>  
+        </div>  
+        <div class="form">
+            <%var date = "0000-00-00";
+            const data = locals.data[0];
+            if (data.date_read != null) {
+                console.log(data.date_read.getMonth()+1);
+                let month = data.date_read.getMonth()+1
+                if (month < 10) {month = "0" + month};
+                const year = data.date_read.getFullYear();
+                const day = (data.date_read.getDate() < 10 ? '0' : '' + data.date_read.getDate());
+                date = year + "-" + month + "-" + day;
+                console.log(data.id);
+            };%>
+            <form action="/submit/<%=data.id%>" action="/" method="GET">
+                <input type="text" id="title" name="title" value="<%=data.title%>" required>
+                <input type="text" name="name" value="<%=data.author%>" required>
+                <label for="date">Date Finished
+                    <%console.log(date);%>
+                    <input type="date" name="date" value="<%=date%>">
+                </label>
+                <input type="text" name="isbn" value="<%=data.isbn%>"><a href="https://isbnsearch.org/">ISBN Lookup Tool</a>
+                <label for="liked">Liked? <input type="checkbox" name="liked" checked></label>
+                <input type="text" name="notes" value="<%=data.notes%>">
+                <input type="text" name="password" placeholder="Password">
+                <input type="submit" value="Submit">
+
+        </div>
+    <hr>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <footer>@el-wittmer 2024 | <a href="https://www.color-hex.com/color-palette/30023">Color Palette</a></footer>
+</body>
+</html>
