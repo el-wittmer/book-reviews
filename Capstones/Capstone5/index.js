@@ -1,8 +1,10 @@
 import express from "express";
-import axios from "axios";
 import bodyParser from "body-parser";
 import pg from "pg";
-import 'dotenv/config'
+import passport from "passport";
+import GoogleStrategy from "passport-google-oauth2";
+import session from "express-session";
+import env from "dotenv";
 
 const app = express();
 const port = 3000;
@@ -10,25 +12,32 @@ const isbn = "9780593582503"
 const baseURL = "https://covers.openlibrary.org/b/isbn/";
 const defaultBase = ".jpg?default=false"
 
-const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "books",
-    password: "ybc46tab",
-    port: 5432,
-  });
-  db.connect();
+env.config();
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+const db = new pg.Client({
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
+    port: process.env.PG_PORT,
+});
+db.connect();
 
 let sort = "newest";
-let remove = false;
+let authenticated = false;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-async function confirmPassword() {
-    let password = prompt("Please enter the password","");
-};
+app.use(passport.initialize());
+app.use(passport.session());
 
 async function getReadBooks(){
     let result;
@@ -63,7 +72,11 @@ app.get("/", async (req, res) => {
                 urls.push("0");
             }
         }
-        res.render("index.ejs", {data: books.rows, urls: urls});
+        if (authenticated) {
+            res.render("index.ejs", {data: books.rows, urls: urls, authenticated: true});
+        } else {
+            res.render("index.ejs", {data: books.rows, urls: urls});
+        }
     }
     catch (err){
         console.log(err.code);
@@ -140,6 +153,17 @@ app.get("/submit/:id", async (req, res) => {
     res.redirect("/");
 });
 
+app.get("/auth/google", passport.authenticate("google", {
+      scope: ["profile", "email"],
+    })
+);
+
+app.get("/auth/google/books", passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/",
+    })
+  );
+
 app.get("/delete/:id", async (req, res) => {
     try {
         await db.query("DELETE FROM books WHERE id = $1", [req.params.id]);
@@ -157,7 +181,41 @@ app.get("/add", async (req, res) => {
 app.get("/edit/:id", async (req, res) => {
     const result = await db.query("SELECT * FROM books WHERE id = $1", [req.params.id]);
     res.render("edit.ejs", {data: result.rows});
-})
+});
+
+passport.use(
+    "google",
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://localhost:3000/auth/google/books",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        try {
+          console.log(profile);
+          
+          if (profile.email === process.env.EMAIL) {
+            authenticated = true;
+            return cb(null, profile.email);
+          } else {
+            return cb(null, profile.email);
+          }
+        } catch (err) {
+          return cb(err);
+        }
+      }
+    )
+  );
+
+  passport.serializeUser((user, cb) => {
+    cb(null, user);
+  });
+  
+  passport.deserializeUser((user, cb) => {
+    cb(null, user);
+  });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

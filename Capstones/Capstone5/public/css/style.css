@@ -118,6 +118,18 @@ form {
     height: 200px;
 }
 
+.login-button {
+    padding: 15px;
+    padding-top: 20px;
+    border: 1px solid #634832;
+    border-radius: 50%;
+    color: #634832;
+}
+
+.login-button > a {
+    text-decoration: none;
+}
+
 input[type="text"] {
     width: 80%;
 }
