@@ -1,40 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Reviews</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Borel&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Borel&family=Shantell+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="content">
-        <div class="header">
-            <h1>Book Reviews</h1>
-            <p>A portfolio project by @el-wittmer</p>  
-        </div>  
-    <hr>
-        <div class="form">
-            <form action="/submit" action="/" method="GET">
-                <input type="text" id="title" name="title" placeholder="Book Title" required>
-                <input type="text" name="name" placeholder="Author Name" required>
-                <input type="text" name="month" placeholder="Month Finished" required>
-                <label for="year">Year Finished
-                    <input type="number" name="year">
-                </label>
-                <a href="https://isbnsearch.org/">ISBN Lookup Tool</a>
-                <input type="text" name="isbn" placeholder="ISBN-13">
-                <label for="liked">Liked? <input type="checkbox" name="liked"></label>
-                <textarea name="notes" rows="5" cols="25" wrap="soft"> </textarea>
-                <input type="text" name="password" placeholder="Password">
-                <input type="submit" value="Submit">
+
+    <title>Book Journal Portfolio Project</title>
+  </head>
+  <body>
+    <main>
+      <section class="pt-5 text-center container">
+        <div class="row py-lg-3">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Book Journal</h1>
+            <p class="lead text-body-secondary">
+              A portfolio project by <a href="https://github.com/el-wittmer">@el-wittmer</a>
+            </p>
+            <p>
+              <a href="/" class="btn btn-outline-dark my-2">Return Home</a>
+            </p>
+          </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <footer>@el-wittmer 2025 | <a href="https://www.color-hex.com/color-palette/30023">Color Palette</a></footer>
-</body>
+      </section>
+      <div class="album py-5 pb-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <form class="px-2 py-1" action="/submit">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" name="author" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Month Read</label>
+                    <select class="form-control" name="month">
+                    <option>    </option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year Read</label>
+                    <input type="text" class="form-control" name="year" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="title">ISBN</label>
+                    <input type="text" class="form-control" name="isbn" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Cover Art</label>
+                    <input class="form-control" type="file" name="cover">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="liked">
+                    <label class="form-check-label" for="liked">Liked</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="audio">
+                    <label class="form-check-label" for="audio">Audiobook</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="owned">
+                    <label class="form-check-label" for="audio">Owned</label>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea class="form-control" name="notes" rows="15"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" name="password" placeholder="">
+                </div>
+                <input type="submit" class="btn btn-secondary" value="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="text-body-secondary py-4">
+    </footer>
+    <script
+      src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      class="astro-vvvwv3sm"
+    ></script>
+    <script
+      type="text/javascript"
+      id="id-ai-highlight"
+      src="moz-extension://08f4d140-5935-45a2-bf12-ff85a59d4444/ai-highlight.js"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

@@ -1,5 +1,5 @@
 main {
-    background-color: #bd9e8a;
+    background-color: #ece0d1;
 }
 
 .album {
@@ -12,6 +12,12 @@ main {
     margin: 5px;
 }
 
+.background {
+    background-color: #ece0d1;
+    border-radius: 15px;
+    padding: 10px;
+}
+
 img {
     height: 75%;
     width: 100%;
@@ -20,10 +26,6 @@ img {
 
 .tag {
     padding: 2px 5px;
-}
-
-header {
-    background-color: #ece0d1;
 }
 
 footer {
@@ -49,6 +51,10 @@ p {
 .notes {
     padding-left: 4em;
     padding-right: 4em;
+}
+
+.foot {
+    color: #ece0d1;
 }
 
 /* body {

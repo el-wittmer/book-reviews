@@ -21,7 +21,6 @@ const db = new pg.Client({
 db.connect();
 
 let sort = "newest";
-let remove = false;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,19 +30,21 @@ async function getReadBooks(){
     if (sort === "newest") {
         result = await db.query("SELECT * FROM books ORDER BY id DESC;");
     }
-    else if (sort === "oldest") {
-        result = await db.query("SELECT * FROM books ORDER BY id ASC;");
-    }
-    else if (sort === "title") {
-        result = await db.query("SELECT * FROM books ORDER BY title ASC;");
-    }
     else if (sort === "liked") {
         result = await db.query("SELECT * FROM books WHERE liked = 'true' ORDER BY id DESC;");
     }
-    else if (sort === "disliked") {
-        result = await db.query("SELECT * FROM books WHERE liked = 'false';");
+    else if (sort === "owned") {
+        result = await db.query("SELECT * FROM books WHERE owned = 'true' ORDER BY id DESC;");
     }
     return result;
+};
+
+async function processBoolean(query_result){
+    if (query_result == null) {
+        return false;
+    } else {
+        return true;
+    };
 };
 
 app.get("/", async (req, res) => {
@@ -68,9 +69,9 @@ app.get("/liked", async (req, res) => {
     }
 }); 
 
-app.get("/newest", async (req, res) => {
+app.get("/owned", async (req, res) => {
     try {
-        sort = "newest";
+        sort = "owned";
         res.redirect("/");
     }
     catch (err){
@@ -79,9 +80,9 @@ app.get("/newest", async (req, res) => {
     }
 }); 
 
-app.get("/oldest", async (req, res) => {
+app.get("/newest", async (req, res) => {
     try {
-        sort = "oldest";
+        sort = "newest";
         res.redirect("/");
     }
     catch (err){
@@ -114,73 +115,45 @@ app.get("/edit", async (req, res) => {
     }
 });
 
-
-// app.get("/pair/:base/:target", async (req, res) => {
-//     try {
-//         const base = req.params.base;
-//         const target = req.params.target;
-//         const url = baseURL + APIkey + "/pair/" + base + "/" + target;
-//         const result = await axios.get(url);
-//         res.render("index.ejs", {baseCode: result.data.base_code, targetCode: result.data.target_code, conversionRate: result.data.conversion_rate});
-//     }
-//     catch (error) {
-//         res.status(500);
-//     }
-
-// });
-
 app.get("/submit", async (req, res) => {
     console.log("Starting...")
-    try {
-        let liked;
-        let date = req.query.date;
-        if (req.query.liked == null) {
-            liked = false;
-        } else {
-            liked = true;
-        };
-        if (req.query.date === "") {
-            date = null;
-        };
+    const password = req.query.password;
+    if (password === process.env.PG_PASSWORD) {
+        const liked = await processBoolean(req.query.liked);
+        const audio = await processBoolean(req.query.audio);
+        const owned = await processBoolean(req.query.owned);
+        const month = req.query.month;
+        const year = req.query.year;
+        const title = req.query.title;
+        const author = req.query.author;
+        const isbn = req.query.isbn;
+        const notes = req.query.notes;
         try {
-            await db.query("INSERT INTO books(title, author, liked, date_read, isbn, notes) VALUES ($1, $2, $3, $4, $5, $6)", [req.query.title, req.query.name, liked, date, req.query.isbn, req.query.notes]);
+            await db.query("INSERT INTO books(title, author, month_read, year_read, isbn, notes, audio, liked, owned) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", 
+                [title, author, month, year, isbn, notes, audio, liked, owned]);
         } catch (err) {
             console.log(err);
-            alert("Error entering book data. Redirecting...")
         }
         console.log("Redirecting...");
         res.redirect("/");
-    } catch (err) {
-        console.log(err);
+    } else {
+        console.log("Password was incorrect. Redirecting...");
+        res.redirect("/");
     }
 });
 
-// app.get("/submit/:id", async (req, res) => {
-//     console.log("Editing...");
-//     try {
-//         let liked;
-//         if (req.query.liked == null) {
-//             liked = false;
-//         } else {
-//             liked = true;
-//         };
-//         await db.query("UPDATE books SET title = $1, author = $2, liked = $3, date_read = $4, isbn = $5, notes = $6 WHERE id = $7", [req.query.title, req.query.name, liked, req.query.date, req.query.isbn, req.query.notes, req.params.id]);
-//     } catch (err) {
-//         console.log(err);
-//         console.log("Error updating book data.");
-//     }
-//     res.redirect("/");
-// });
-
-// app.get("/delete/:id", async (req, res) => {
-//     try {
-//         await db.query("DELETE FROM books WHERE id = $1", [req.params.id]);
-//     } catch (err) {
-//         console.log(err);
-//         console.log("Error updating book data.");
-//     }
-//     res.redirect("/");
-// });
+app.get("/submit/:id", async (req, res) => {
+    console.log("Editing...");
+    const liked = await processBoolean(req.query.liked);
+    try {
+        await db.query("UPDATE books SET title = $1, author = $2, liked = $3, date_read = $4, isbn = $5, notes = $6 WHERE id = $7", 
+            [req.query.title, req.query.name, liked, req.query.date, req.query.isbn, req.query.notes, req.params.id]);
+    } catch (err) {
+        console.log(err);
+    }
+    console.log("Redirecting...");
+    res.redirect("/");
+});
 
 app.get("/add", async (req, res) => {
     res.render("add.ejs");
