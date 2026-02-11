@@ -2,21 +2,17 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import dotenv from 'dotenv';
-import axios from "axios"
 dotenv.config();
 
 const app = express();
 const port = 3000;
-const isbn = "9780553418026"
-const baseURL = "https://covers.openlibrary.org/b/isbn/";
-const defaultBase = ".jpg?default=false"
 
 const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
+    user: process.env.PGUSER,
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: process.env.PGPORT,
 });
 db.connect();
 
