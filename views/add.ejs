@@ -18,84 +18,68 @@
   </head>
   <body>
     <main>
-      <section class="pt-5 text-center container">
-        <div class="row py-lg-3">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Book Journal</h1>
-            <p class="lead text-body-secondary">
-              A portfolio project by <a href="https://github.com/el-wittmer">@el-wittmer</a>
-            </p>
-            <p>
-              <a href="/" class="btn btn-outline-dark my-2">Return Home</a>
-            </p>
-          </div>
+      <section class="pt-5 text-center background-wave">
+        <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <%- include('header.ejs')%>
+        </div>
         </div>
       </section>
+      <%- include('header_wave.ejs') %>
       <div class="album py-5 pb-4">
         <div class="container">
           <div class="row">
             <div class="col-12">
               <div class="card shadow-sm">
-                <form class="px-2 py-1" action="/submit">
+                <form class="px-2 py-1" action="/add" method="POST">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="">
+                    <input type="text" class="form-control" id="title" name="title">
                 </div>
                 <div class="form-group">
                     <label for="author">Author</label>
-                    <input type="text" class="form-control" name="author" placeholder="">
+                    <input type="text" class="form-control" id="author" name="author">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Month Read</label>
-                    <select class="form-control" name="month">
-                    <option>    </option>
-                    <option>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>May</option>
-                    <option>June</option>
-                    <option>July</option>
-                    <option>August</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
+                    <label for="rating">Rating (1-5)</label>
+                    <select class="form-control" id="rating" name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="year">Year Read</label>
-                    <input type="text" class="form-control" name="year" placeholder="">
+                    <label for="month">Month Finished</label>
+                    <select class="form-control" id="month" name="month">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="title">ISBN</label>
-                    <input type="text" class="form-control" name="isbn" placeholder="">
+                    <label for="year">Year Finished</label>
+                    <input type="text" class="form-control" id="year" name="year">
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Cover Art</label>
-                    <input class="form-control" type="file" name="cover">
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" name="liked">
-                    <label class="form-check-label" for="liked">Liked</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" name="audio">
-                    <label class="form-check-label" for="audio">Audiobook</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" name="owned">
-                    <label class="form-check-label" for="audio">Owned</label>
+                <div class="form-group">
+                    <label for="title">ISBN-13</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn">
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" name="notes" rows="15"></textarea>
+                    <textarea class="form-control" id="notes" name="notes" rows="15"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" placeholder="">
-                </div>
-                <input type="submit" class="btn btn-secondary" value="Submit">
+                <button type="submit" class="btn btn-secondary">Submit</button>
                 </form>
               </div>
             </div>
@@ -103,8 +87,7 @@
         </div>
       </div>
     </main>
-    <footer class="text-body-secondary py-4">
-    </footer>
+    <%- include('footer.ejs')%>
     <script
       src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

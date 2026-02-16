@@ -18,52 +18,66 @@
   </head>
   <body>
     <main>
-      <section class="pt-5 text-center container">
-        <div class="row py-lg-3">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Book Journal</h1>
-            <p class="lead text-body-secondary">
-              A portfolio project by <a href="https://github.com/el-wittmer">@el-wittmer</a>
-            </p>
-            <p>
-              <a href="/" class="btn btn-outline-dark my-2">Return Home</a>
-            </p>
-          </div>
+      <section class="pt-5 text-center background-wave">
+        <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <%- include('header.ejs')%>
+        </div>
         </div>
       </section>
+      <%- include('header_wave.ejs') %>
       <div class="album py-5 pb-4">
         <div class="container">
           <div class="row">
             <div class="col-12">
               <div class="card shadow-sm">
-                <form class="px-2 py-1">
+                <form class="px-2 py-1" action="/submit/<%= locals.data.id %>" method="POST">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="<%=locals.data.title%>">
+                    <input type="text" class="form-control" id="title" name="title" value="<%=locals.data.title%>">
                 </div>
                 <div class="form-group">
                     <label for="author">Author</label>
-                    <input type="text" class="form-control" id="author" placeholder="<%=locals.data.author%>">
+                    <input type="text" class="form-control" id="author" name="author" value="<%=locals.data.author%>">
                 </div>
                 <div class="form-group">
-                    <label for="title">ISBN</label>
-                    <input type="text" class="form-control" id="isbn" placeholder="<%=locals.data.isbn%>">
+                    <label for="rating">Rating (1-5)</label>
+                    <select class="form-control" id="rating" name="rating">
+                        <option value="1" <%= locals.data.rating == 1 ? 'selected' : '' %>>1</option>
+                        <option value="2" <%= locals.data.rating == 2 ? 'selected' : '' %>>2</option>
+                        <option value="3" <%= locals.data.rating == 3 ? 'selected' : '' %>>3</option>
+                        <option value="4" <%= locals.data.rating == 4 ? 'selected' : '' %>>4</option>
+                        <option value="5" <%= locals.data.rating == 5 ? 'selected' : '' %>>5</option>
+                    </select>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="liked">
-                    <label class="form-check-label" for="liked">Liked</label>
+                <div class="form-group">
+                    <label for="month">Month Finished</label>
+                    <select class="form-control" id="month" name="month">
+                        <option value="January" <%= locals.data.month == "January" ? 'selected' : '' %>>January</option>
+                        <option value="February" <%= locals.data.month == "February" ? 'selected' : '' %>>February</option>
+                        <option value="March" <%= locals.data.month == "March" ? 'selected' : '' %>>March</option>
+                        <option value="April" <%= locals.data.month == "April" ? 'selected' : '' %>>April</option>
+                        <option value="May" <%= locals.data.month == "May" ? 'selected' : '' %>>May</option>
+                        <option value="June" <%= locals.data.month == "June" ? 'selected' : '' %>>June</option>
+                        <option value="July" <%= locals.data.month == "July" ? 'selected' : '' %>>July</option>
+                        <option value="August" <%= locals.data.month == "August" ? 'selected' : '' %>>August</option>
+                        <option value="September" <%= locals.data.month == "September" ? 'selected' : '' %>>September</option>
+                        <option value="October" <%= locals.data.month == "October" ? 'selected' : '' %>>October</option>
+                        <option value="November" <%= locals.data.month == "November" ? 'selected' : '' %>>November</option>
+                        <option value="December" <%= locals.data.month == "December" ? 'selected' : '' %>>December</option>
+                    </select>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="audio">
-                    <label class="form-check-label" for="audio">Audiobook</label>
+                <div class="form-group">
+                    <label for="year">Year Finished</label>
+                    <input type="text" class="form-control" id="year" name="year" value="<%=locals.data.year%>">
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="owned">
-                    <label class="form-check-label" for="owned">Owned</label>
+                <div class="form-group">
+                    <label for="title">ISBN-13</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn" value="<%=locals.data.isbn%>">
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" id="notes" rows="15"><%=locals.data.notes%></textarea>
+                    <textarea class="form-control" id="notes" name="notes" rows="15"><%=locals.data.notes%></textarea>
                 </div>
                 <button type="submit" class="btn btn-secondary">Submit</button>
                 </form>
@@ -73,8 +87,7 @@
         </div>
       </div>
     </main>
-    <footer class="text-body-secondary py-4">
-    </footer>
+    <%- include('footer.ejs')%>
     <script
       src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

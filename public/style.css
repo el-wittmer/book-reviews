@@ -2,10 +2,24 @@ main {
     background-color: #ece0d1;
 }
 
+.wave-container > svg {
+  display: block;
+}
+
+.background-wave {
+    background: #FFFFFF;
+}
+
+.background-second {
+    background: #816451;
+}
+
+.background-third {
+    background: #ece0d1;
+}
+
 .album {
-  background: 
-    repeating-conic-gradient(#a3826c 0 25%, #816451 0 50%) 
-      50% / 100px 100px
+  background: #816451;
 };
 
 .card {
@@ -19,8 +33,8 @@ main {
 }
 
 img {
-    height: 75%;
     width: 100%;
+    aspect-ratio: 3/4.5;
     padding: 5px;
 }
 
@@ -29,7 +43,7 @@ img {
 }
 
 footer {
-    background-color: #816451;
+    background-color: #ece0d1;
 }
 
 h1 {
@@ -54,7 +68,7 @@ p {
 }
 
 .foot {
-    color: #ece0d1;
+    color: #38220f;
 }
 
 /* body {

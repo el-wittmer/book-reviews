@@ -18,35 +18,33 @@
   </head>
   <body>
     <main>
-      <section class="pt-5 text-center container">
-        <div class="row py-lg-3">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Book Journal</h1>
-            <p class="lead text-body-secondary">
-              A portfolio project by <a href="https://github.com/el-wittmer">@el-wittmer</a>
-            </p>
-            <p>
-              <a href="/" class="btn btn-outline-dark my-2">Return Home</a>
-            </p>
-          </div>
+      <section class="pt-5 text-center background-wave">
+        <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <%- include('header.ejs')%>
+        </div>
         </div>
       </section>
+      <%- include('header_wave.ejs') %>
       <div class="album py-5 pb-4">
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <div class="card shadow-sm td-flex align-items-center">
-                <img class="my-3" src="/images/<%=data.isbn%>.png" style="height:200px; width:150px">
-                <h2><%=data.title%> - <%=data.author%></h2>
-                <p class="notes"><%=data.notes%></p>
+              <div class="shadow-sm td-flex mx-3">
+                <img class="mx-3" src="/images/<%=data.isbn%>.png" style="height:200px; width:150px; float:left; border:5px solid #FFFFFF">
+                <h2 style="color:white"><%=data.title%> - <%=data.author%></h2>
+                <p style="color:white"><%- data.notes.replace(/\n/g, '<br>') %>
+                </p>
               </div>
+            </div>
+            <div class="d-grid gap-2 col-1 mx-auto mt-3">
+              <a href="/" class="btn btn-light">Back to home</a>
             </div>
           </div>
         </div>
       </div>
     </main>
-    <footer class="text-body-secondary py-4">
-    </footer>
+    <%- include('footer.ejs'); %>
     <script
       src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
