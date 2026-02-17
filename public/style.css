@@ -2,6 +2,10 @@ main {
     background-color: #ece0d1;
 }
 
+.navbar {
+    background-color: #ffffff;
+}
+
 .wave-container > svg {
   display: block;
 }

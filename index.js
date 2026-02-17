@@ -132,17 +132,17 @@ app.post("/add", async (req, res) => {
     res.redirect("/");
 });
 
-app.get("/delete", async (req, res) => {
-    console.log("Deleting...");
-    try {
-        await db.query("DELETE FROM book_reviews WHERE id = $1;", 
-            [req.query.id]);
-    } catch (err) {
-        console.log(err);
-    }
-    console.log("Redirecting...");
-    res.redirect("/");
-});
+// app.post("/delete/:id", async (req, res) => {
+//     console.log("Deleting...");
+//     try {
+//         await db.query("DELETE FROM book_reviews WHERE id = $1;", 
+//             [req.params.id]);
+//     } catch (err) {
+//         console.log(err);
+//     }
+//     console.log("Redirecting...");
+//     res.redirect("/");
+// });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
