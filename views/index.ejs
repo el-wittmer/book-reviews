@@ -20,35 +20,39 @@
     <main>
       <%- include('header.ejs')%>
       <%- include('header_wave.ejs') %>
+      <div id="modalOverlay" class="modal-overlay" style="display:none;"> 
+        <div id="modalBox" class="modal-box">
+        </div> 
+      </div>
       <div class="album pt-5 bg-body-tertiary pb-4">
         <div class="container">
           <div class="row">
             <% for (let i = 0; i < locals.data.length; i++){%>
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-              <div class="card shadow-sm my-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+              <div class="card flex-fill shadow-sm">
                     <% let imgUrl = "/images/" + locals.data[i].isbn + '.png'; %>
                     <img src=<%=imgUrl%>>
                     <div class="card-body">
-                        <p class="card-text">
+                        <h2>
                             <%=locals.data[i].title%>
-                            <br />
-                            <%=locals.data[i].author%>
-                            <br />
+                        </h2>
+                        <h3><i><%=locals.data[i].author%></i></h3>
+                        <p>
                             <% if (locals.data[i].year != null) {%>
                                 <small class="text-body-secondary">Finished <%=locals.data[i].month%> <%=locals.data[i].year%></small>
                             <%};%>
                             <%const star = "★"%>
-                            <p>Rating: <%=star.repeat(locals.data[i].rating)%></p>
-                        </p></p>
+                            <p><%=star.repeat(locals.data[i].rating)%>
+                        </p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
+                        <div class="button-group">
                             <a href="/view?id=<%=locals.data[i].id%>"><button
                                 type="button"
-                                class="btn btn-sm btn-outline-dark mr-1"
+                                class="btn btn-sm mr-1 primary-button"
                             > View </button></a>
                             <a href="/edit?id=<%=locals.data[i].id%>"><button
                                 type="button"
-                                class="btn btn-sm btn-outline-dark mr-1"
+                                class="btn btn-sm mr-1 secondary-button"
                             > Edit </button></a>
                             <!-- <a href="/delete?id=<%=locals.data[i].id%>"><button
                                 type="button"
