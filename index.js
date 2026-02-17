@@ -33,14 +33,6 @@ async function getReadBooks(){
     return result;
 };
 
-async function processBoolean(query_result){
-    if (query_result == null) {
-        return false;
-    } else {
-        return true;
-    };
-};
-
 app.get("/", async (req, res) => {
     try {
         const books = await getReadBooks();
@@ -109,9 +101,11 @@ app.post("/submit/:id", async (req, res) => {
     const isbn = req.body.isbn;
     const notes = req.body.notes;
     const rating = req.body.rating;
+    const month = req.body.month;
+    const year = req.body.year;
     try {
-        await db.query("UPDATE book_reviews SET title = $1, author = $2, rating = $3, isbn = $4, notes = $5 WHERE id = $6", 
-            [title, author, rating, isbn, notes, req.params.id]);
+        await db.query("UPDATE book_reviews SET title = $1, author = $2, rating = $3, isbn = $4, notes = $5, month = $6, year = $7 WHERE id = $8", 
+            [title, author, rating, isbn, notes, month, year, req.params.id]);
     } catch (err) {
         console.log(err);
     }
