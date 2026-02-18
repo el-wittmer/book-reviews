@@ -78,17 +78,17 @@ app.get("/view", async (req, res) => {
     }
 }); 
 
-app.get("/edit", async (req, res) => {
-    try {
-        const searchId = req.query.id;
-        const idResults = await db.query("SELECT * FROM book_reviews WHERE id = " + searchId + ";");
-        res.render("edit.ejs", {data: idResults.rows[0]});
-    }
-    catch (err){
-        console.error(err); 
-        res.status(500).send("Template error");
-    }
-});
+// app.get("/edit", async (req, res) => {
+//     try {
+//         const searchId = req.query.id;
+//         const idResults = await db.query("SELECT * FROM book_reviews WHERE id = " + searchId + ";");
+//         res.render("edit.ejs", {data: idResults.rows[0]});
+//     }
+//     catch (err){
+//         console.error(err); 
+//         res.status(500).send("Template error");
+//     }
+// });
 
 app.get("/add", async (req, res) => {
     res.render("add.ejs");

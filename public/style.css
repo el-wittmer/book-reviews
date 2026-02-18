@@ -51,7 +51,24 @@ footer {
 }
 
 h1 {
-  color: #3B2B22;
+  font-family: "Cormorant Garamond", serif;
+  font-size:2rem;
+  font-weight: 400;
+  color: #6A5042;
+  margin-top:1px;
+}
+
+h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1px;
+
+}
+
+h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
 }
 
 p {
@@ -91,15 +108,12 @@ p {
   line-height: 1.2;
 }
 
-.text-on-brown {
-  color: #3B2B22;
-}
-
 /* Center text for mobile view */
 .text-block-wrapper,
 .text-block-wrapper .metadata-line,
 .text-block-wrapper .notes-text {
   text-align: center;
+  padding-top: 1rem;
 } /* Left align on larger screens */
 @media (min-width: 768px) {
   .text-block-wrapper,
@@ -108,6 +122,14 @@ p {
     text-align: left;
   }
 }
+
+@media (max-width: 575px) {
+  .card {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+}
+
 
 .button-group {      
     padding-top: 5px; 
@@ -148,206 +170,3 @@ p {
 .secondary-button:active {
   transform: scale(0.97);           
 }
-
-
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #dbc1ac;
-    color: #38220f;
-    background-image: linear-gradient(45deg, #634832 25%, transparent 25%), linear-gradient(-45deg, #634832 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #634832 75%), linear-gradient(-45deg, transparent 75%, #634832 75%);
-    background-size: 40px 40px;
-    background-position: 0 0, 0 40px, 40px -40px, -40px 0px;
-    font-family: 'Shantell Sans', cursive;
-}
-
-a {
-    color: #38220f;
-}
-
-.content {
-    height: 100%;
-    min-height: 100vh;
-    width: 90%;
-    background-color: #ece0d1;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    
-}
-
-.header {
-    padding-left: 15rem;
-    padding-right: 15rem;
-    padding-top: 3rem;
-    padding-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-img {
-    float: left;
-    height: 200px;
-    width: 150px;
-    padding-top: 10px;
-    padding-right: 20px;
-}
-
-.null {
-    float: left;
-    height: 175px;
-    width: 100px;
-    padding-right: 20px;
-    padding-left: 15px;
-}
-
-h1 {
-    margin: 0px;
-    font-family: 'Shantell Sans', cursive;
-}*/
-
-h2 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1px;
-
-}
-
-h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1rem;
-}
-/*
-
-p {
-    margin-top: 3px;
-    font-family: 'Shantell Sans', cursive;
-}
-
-hr { 
-    width: 70%;
-    color: #38220f; 
-    border-style: inset; 
-    border-width: 1px; 
-    margin: 0.5em auto; 
-}
-
-hr.internal {
-    width: 65%;
-    border-width: 0.5px; 
-}
-
-
-footer {
-    display: flex;
-    width: 90%;
-    bottom: 0;
-    justify-content: center;
-    background-color: #ece0d1;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
-form {
-    width: 60%;
-    margin: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Shantell Sans', cursive; 
-}
-
-.date-liked {
-    display: flex;
-    flex-direction: row;
-}
-
-.liked {
-    float: right;
-    padding-right: 1rem;
-}
-
-.book-data {
-    padding-left: 15rem;
-    padding-right: 15rem;
-    padding-top: 2rem;
-}
-
-.modifiers {
-    padding-left: 1rem;
-}
-
-#notes {
-    height: 200px;
-}
-
-input[type="text"] {
-    width: 80%;
-}
-
-input {
-    margin: 0.5rem;
-}
-
-.form {
-    display: flex;
-    justify-content: center;
-}
-
-@media (max-width: 900px) {
-
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .books {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .header {
-        width: 70%;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        padding-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .book-data {
-        width: 70%;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        padding-top: 2rem;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
-    
-    .modifiers {
-        margin-bottom: 1rem;
-        padding-left: 0px;
-    }
-
-    .book-images {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .book-cover {
-        padding-left: 0px;
-    }
-} */
