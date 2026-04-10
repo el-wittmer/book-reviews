@@ -140,9 +140,9 @@ p {
 }
 
 .primary-button {
-  background-color: #C26A4A;  
+  background-color: #8F4A33;  
   color: #FFFFFF;   
-  border: 2px solid #C26A4A;  
+  border: 2px solid #8F4A33;  
   padding: 0.5rem 1rem;            
 }
 
@@ -157,8 +157,8 @@ p {
 
 .secondary-button {
   background-color: transparent;    
-  color: #C26A4A;                    
-  border: 2px solid #C26A4A;   
+  color: #8F4A33;                    
+  border: 2px solid #8F4A33;   
   padding: 0.5rem 1rem;       
 }
 
