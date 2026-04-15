@@ -31,7 +31,7 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-4 d-flex">
               <div class="card flex-fill shadow-sm">
                     <% let imgUrl = "/images/" + locals.data[i].isbn + '.png'; %>
-                    <img src=<%=imgUrl%>>
+                    <img src=<%=imgUrl%> alt="Book cover for <%=locals.data[i].title%> by <%=locals.data[i].author%>">
                     <div class="card-body">
                         <h2>
                             <%=locals.data[i].title%>

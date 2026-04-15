@@ -6,12 +6,28 @@ main {
   background-color: #F9F4EE;
 }
 
+.navbar-light .navbar-nav .nav-link {
+  color: #6B3724;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #000000;
+}
+
+.login-button {
+  background-color: #6B3724;  
+  color: #FFFFFF;   
+  border: 2px solid #6B3724;  
+  padding: 0.25rem 1rem;            
+}
+
 .wave-container > svg {
   display: block;
 }
 
 .background-wave {
   background: #F9F4EE;
+  display: flex;
+  flex-direction: column;
 }
 
 .background-second {
@@ -81,7 +97,7 @@ p {
 }
 
 .card {
-  background-color: #EFE1D3;
+  background-color: #F5EBE0;
   border: 1px solid #3B2B22;
   box-shadow: 0 4px 8px #6A5042;
   display: flex;
@@ -140,14 +156,14 @@ p {
 }
 
 .primary-button {
-  background-color: #C26A4A;  
+  background-color: #6B3724;  
   color: #FFFFFF;   
-  border: 2px solid #C26A4A;  
+  border: 2px solid #6B3724;  
   padding: 0.5rem 1rem;            
 }
 
 .primary-button:hover {
-  background-color: #B85E42;  
+  background-color: #8A462E;  
 }
 
 .primary-button:active {
@@ -157,13 +173,13 @@ p {
 
 .secondary-button {
   background-color: transparent;    
-  color: #C26A4A;                    
-  border: 2px solid #C26A4A;   
+  color: #6B3724;                    
+  border: 2px solid #6B3724;   
   padding: 0.5rem 1rem;       
 }
 
 .secondary-button:hover {
-  background-color: #C26A4A;  
+  background-color: #8A462E;  
   color: white;                      
 }
 
