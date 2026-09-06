@@ -1,0 +1,65 @@
+name: Deploy to AWS
+
+on:
+  workflow_call:
+    secrets:
+      EC2_HOST:
+        required: true
+      EC2_SSH_PRIVATE_KEY:
+        required: true
+      EC2_KNOWN_HOSTS:
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ubuntu
+      EC2_APP_DIR: /home/ubuntu/app
+      SERVICE_NAME: myapp.service
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Configure SSH
+        env:
+          EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$EC2_SSH_PRIVATE_KEY" > ~/.ssh/ec2_key
+          printf '%s\n' "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/ec2_key ~/.ssh/known_hosts
+
+      - name: Copy application to EC2
+        run: |
+          rsync --archive --compress \
+            --exclude '.env' \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'node_modules/' \
+            -e "ssh -i ~/.ssh/ec2_key" \
+            ./ \
+            "$EC2_USER@$EC2_HOST:$EC2_APP_DIR/"
+
+      - name: Install dependencies and restart application
+        run: |
+          ssh -i ~/.ssh/ec2_key "$EC2_USER@$EC2_HOST" \
+            "cd '$EC2_APP_DIR' && npm ci --omit=dev && sudo systemctl restart '$SERVICE_NAME' && sudo systemctl is-active --quiet '$SERVICE_NAME'"
+
+      - name: Verify application
+        run: |
+          ssh -i ~/.ssh/ec2_key "$EC2_USER@$EC2_HOST" \
+            "curl --fail --silent --show-error --retry 5 --retry-delay 2 http://localhost:3000/ > /dev/null"
