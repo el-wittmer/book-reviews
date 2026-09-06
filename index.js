@@ -68,14 +68,27 @@ app.get("/highest", async (req, res) => {
 }); 
 
 app.get("/view", async (req, res) => {
+    const id = Number.parseInt(req.query.id, 10);
+
+    if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).send("Invalid book ID");
+    }
+
     try {
-        const searchId = req.query.id;
-        const idResults = await db.query("SELECT * FROM book_reviews WHERE id = "+ searchId + ";");
-        res.render("view.ejs", {data: idResults.rows[0]});
+        const result = await db.query(
+            "SELECT * FROM book_reviews WHERE id = $1",
+            [id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).send("Book not found");
+        }
+
+        res.render("view.ejs", { data: result.rows[0] });
     }
     catch (err){
         console.error(err); 
-        res.status(500).send("Template error");
+        res.status(500).send("Unable to retrieve book");
     }
 }); 
 
@@ -83,14 +96,27 @@ app.get("/edit", async (req, res) => {
     if (authenticated === false) {
         res.render("login.ejs");
     } else {
+        const id = Number.parseInt(req.query.id, 10);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(400).send("Invalid book ID");
+        }
+
         try {
-            const searchId = req.query.id;
-            const idResults = await db.query("SELECT * FROM book_reviews WHERE id = " + searchId + ";");
-            res.render("edit.ejs", {data: idResults.rows[0]});
+            const result = await db.query(
+                "SELECT * FROM book_reviews WHERE id = $1",
+                [id]
+            );
+
+            if (result.rowCount === 0) {
+                return res.status(404).send("Book not found");
+            }
+
+            res.render("edit.ejs", { data: result.rows[0] });
         }
         catch (err){
             console.error(err); 
-            res.status(500).send("Template error");
+            res.status(500).send("Unable to retrieve book");
         }
     };
 });
@@ -108,8 +134,6 @@ app.get("/login", async (req, res) => {
 })
 
 app.post("/login", async (req, res) => {
-    console.log(req.body.user);
-    console.log(req.body.password);
     if (req.body.user == "admin" && req.body.password == process.env.ADMINPASSWORD) {
         authenticated = true;
         console.log("authenticated");
